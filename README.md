@@ -33,7 +33,8 @@ python manage.py migrate
 python manage.py createsuperuser
 # root:12345678
 
-
+# run server
+python manage.py runserver
 ```
 
 ```sh
