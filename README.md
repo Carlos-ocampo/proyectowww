@@ -43,6 +43,8 @@ http -a root:12345678 GET  http://127.0.0.1:8000/api/paises/
 
 ```
 
+## Frontend
+
 ```sh
 npm create vite@latest beca_vue -- --template vue
 cd beca_vue
@@ -59,7 +61,7 @@ route
 
 - [route](https://router.vuejs.org/installation.html#npm)
 
-axios by api
+axios llamado del api
 
 - [Axios](https://axios-http.com/docs/intro) not use this, just see documentation
 - [Axios wit vue](https://www.npmjs.com/package/vue-axios)
