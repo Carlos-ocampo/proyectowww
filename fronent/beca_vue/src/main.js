@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -20,4 +21,5 @@ import router from './router'
 createApp(App)// Instance app
 .use(router)// integrate route
 .use(VueAxios, axios)// integrate axios
+.use(createPinia())
 .mount('#app')// mount

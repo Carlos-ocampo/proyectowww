@@ -8,7 +8,8 @@
 <script>
 import Login from "../components/Login.vue";
 import MainView from "../components/Main.vue";
-
+import { mapWritableState } from 'pinia'
+import { useSessionStore } from "../stores/SessionStore"
 
 export default {
   name: "HomeView",
@@ -16,16 +17,9 @@ export default {
     Login,
     MainView
   },
-  data() {
-    return {
-      sessionToken: ""
-    }
+  computed: {
+    ...mapWritableState(useSessionStore, ['sessionToken'])
   },
-  created() {
-    // take token
-    let s_token = localStorage.getItem("token")
-    this.sessionToken = s_token ? s_token : ""
-    console.log(s_token)
-  },
+
 };
 </script>

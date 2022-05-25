@@ -2,24 +2,30 @@
   <div class="">
     <nav>
       <NavBar />
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <!-- <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> -->
     </nav>
     <router-view />
-
-    <!-- <img alt="Vue logo" src="./assets/logo.png" />
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-    <router-view></router-view> -->
   </div>
 </template>
 
 <script>
 import NavBar from "./components/NavBar.vue";
+import { mapWritableState } from 'pinia'
+import { useSessionStore } from "./stores/SessionStore"
+
 export default {
- 
   components: {
     NavBar
+  },
+  computed: {
+    ...mapWritableState(useSessionStore, ['sessionToken'])
+  },
+  created() {
+    // take token
+    let s_token = localStorage.getItem("token")
+    this.sessionToken = s_token ? s_token : ""
+    console.log("ss", this.sessionToken)
   },
 }
 

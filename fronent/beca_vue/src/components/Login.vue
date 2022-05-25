@@ -41,6 +41,8 @@
 
 <script>
 import axios from "axios";
+import { mapWritableState } from 'pinia'
+import { useSessionStore } from "../stores/SessionStore"
 
 export default {
   name: "LoginView",
@@ -55,7 +57,9 @@ export default {
       passwordError: false,
     };
   },
-  computed: {},
+  computed: {
+    ...mapWritableState(useSessionStore, ['sessionToken'])
+  },
   methods: {
     login: function () {
       let auto_json = {
@@ -88,7 +92,8 @@ export default {
           if (response.status == 200) {
             // guardar token
             localStorage.token = response.data.token
-            t.$router.push('dashboard')
+            // t.$router.push('dashboard')
+            t.sessionToken = response.data.token
           } else {
             t.error = true;
             t.errorMessage =

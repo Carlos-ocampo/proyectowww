@@ -65,3 +65,7 @@ axios llamado del api
 
 - [Axios](https://axios-http.com/docs/intro) not use this, just see documentation
 - [Axios wit vue](https://www.npmjs.com/package/vue-axios)
+
+Pinia storage manager
+
+- [Pinia](https://pinia.vuejs.org/getting-started.html)
