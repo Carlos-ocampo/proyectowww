@@ -17,21 +17,15 @@
             <input type="password" placeholder="Clave" class="input input-bordered"
               :class="{ 'input-error': passwordError }" v-model="password" />
             <label class="label">
-              <!-- <a href="#" class="label-text-alt link link-hover">Forgot password?</a> -->
               <div v-show="error" class="mt-2 alert alert-error shadow-lg">
                 <div>
-                  <!-- <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg> -->
                   <span class="text-center">{{ errorMessage }}</span>
                 </div>
               </div>
             </label>
           </div>
           <div class="form-control mt-6">
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Acceder</button>
           </div>
         </form>
       </div>
@@ -62,20 +56,8 @@ export default {
   },
   methods: {
     login: function () {
-      let auto_json = {
-        username: this.username,
-        password: this.password,
-      };
-      // let t = this;
-      // var options = {
-      //   method: "POST",
-      //   url: "http://127.0.0.1:8000/api_generate_token/",
-      //   // url: 'http://127.0.0.1:8000/api/',
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   data: auto_json,
-      // };
+
+      // Validaciones
       if (this.username.trim() == "" || this.password == "") {
         this.error = true;
         this.errorMessage = "Los campos usuario y contraseña son obligatorios";
@@ -85,7 +67,14 @@ export default {
         return;
       }
 
+      // json componentes
+      let auto_json = {
+        username: this.username,
+        password: this.password,
+      };
       let t = this;
+
+      // petition
       axios
         .post("http://127.0.0.1:8000/api_generate_token/", auto_json)
         .then((response) => {
@@ -94,6 +83,9 @@ export default {
             localStorage.token = response.data.token
             // t.$router.push('dashboard')
             t.sessionToken = response.data.token
+            //
+            t.$router.push('/')
+            
           } else {
             t.error = true;
             t.errorMessage =
@@ -112,6 +104,13 @@ export default {
           }
         });
     },
+  },
+  created() {
+    // Validar el estado del inicio de sesion
+    if (this.sessionToken != ''){
+      console.log("Push /")
+      this.$router.push('/')
+    }
   },
 };
 </script>

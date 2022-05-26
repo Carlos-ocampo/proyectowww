@@ -1,11 +1,11 @@
 <template>
   <div class="">
     <nav>
+      <!-- Componente visual para el navbar -->
       <NavBar />
-      <!-- <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> -->
     </nav>
-    <router-view />
+    <!-- Renderizar vista dependiendo la ruta -->
+    <router-view /> 
   </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
     // take token
     let s_token = localStorage.getItem("token")
     this.sessionToken = s_token ? s_token : ""
-    console.log("ss", this.sessionToken)
+    console.log("global->", this.sessionToken)
   },
 }
 

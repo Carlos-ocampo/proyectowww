@@ -1,39 +1,72 @@
 <template>
-  <div class="fixed navbar bg-base-100 ">
+
+  <div class="navbar ">
     <div class="flex-1">
-      <a class="btn btn-ghost normal-case text-xl">Becas HV</a>
-    </div>
-    <div class="hidden sm:inline-flex mx-4 text-sm breadcrumbs">
-      <ul>
-        <li><a>Home</a></li>
-        <li><a>Documents</a></li>
-        <li>Add Document</li>
-      </ul>
-    </div>
-    <div class="sm:hidden dropdown dropdown-content ">
-      <label tabindex="0" class="btn btn-ghost rounded-btn"></label>
-      <ul tabindex="0" class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-        <li><a>Item 1</a></li>
-        <li><a>Item 2</a></li>
-      </ul>
+      <router-link to="/" class="btn btn-ghost normal-case text-xl">Becas University </router-link>
     </div>
 
     <div class="flex-none">
       <ul class="menu menu-horizontal p-0">
-        <li>
-          <router-link to="/">Home</router-link>
+
+        <li tabindex="0" class=" md:hidden dropdown dropdown-end dropdown-hover">
+          <a>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              class="inline-block w-5 h-5 stroke-current">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </a>
+          <ul class="p-2 bg-base-100 dropdown-content menu shadow rounded-box w-52">
+            <li v-for="enlace in enlaces" :key="enlace.id">
+              <router-link :to="enlace.url">{{ enlace.name }} CRUD</router-link>
+            </li>
+          </ul>
         </li>
-        <li>
-          <router-link to="/about">About</router-link>
+
+        <li v-if="sessionToken == ''">
+          <router-link to="/login">Acceder</router-link>
         </li>
+
+        <div v-if="!sessionToken == ''" class="text-sm breadcrumbs hidden md:inline">
+          <ul>
+            <li v-for="enlace in enlaces" :key="enlace.id">
+              <router-link :to="enlace.url">{{ enlace.name }} CRUD</router-link>
+            </li>
+          </ul>
+        </div>
+
+        <li v-if="!sessionToken == ''">
+          <a @click="logout">Cerrar Sesión</a>
+        </li>
+
       </ul>
+
     </div>
   </div>
 </template>
 <script>
+import { mapWritableState } from 'pinia'
+import { useSessionStore } from "../stores/SessionStore"
 
 export default {
   name: 'NavBar',
+  data() {
+    return {
+      enlaces: [
+        { id: 1, url: '/paises', name: 'Paises' },
+        { id: 2, url: '/', name: 'Universidades' },
+        { id: 3, url: '/', name: 'Becas' }
+      ]
+    }
+  },
+  computed: {
+    ...mapWritableState(useSessionStore, ['sessionToken'])
+  },
+  methods: {
+    logout: function () {
+      // remove token
+      localStorage.removeItem('token')
+      this.sessionToken = ''
+    }
+  }
 }
-
 </script>
