@@ -69,3 +69,68 @@ axios llamado del api
 Pinia storage manager
 
 - [Pinia](https://pinia.vuejs.org/getting-started.html)
+
+icons
+
+- [icons](https://www.flaticon.es/uicons/get-started)
+  
+## Proceso de montaje
+
+### Manage Backend
+
+#### En caso de instalación
+
+```sh
+cd backend
+python -m venv env
+
+# windows
+.\env\Scripts\activate
+# linux
+# source env/bin/activate
+python -m pip install --upgrade pip
+pip install django djangorestframework httpie pillow django-cors-headers
+
+python becas_api/manage.py makemigrations
+python becas_api/manage.py migrate
+python becas_api/manage.py createsuperuser
+# root:12345678
+# up server
+python becas_api/manage.py runserver
+```
+
+#### Levantar servidor
+
+```sh
+cd backend
+
+# windows
+.\env\Scripts\activate
+# linux
+# source env/bin/activate
+
+python becas_api/manage.py runserver
+
+```
+
+### Manage Frontend
+
+### En case de instalación
+
+```sh
+cd frontend
+cd beca_vue
+npm install
+## up server
+npm run dev
+
+```
+
+#### Levantar servidor
+
+```sh
+cd frontend
+cd beca_vue
+npm run dev
+
+```
